@@ -1,7 +1,11 @@
-﻿namespace Infrastructure
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace Infrastructure
 {
-    public class OrderProyectDBContext
+    public class OrderProyectDBContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
 
     }
 }
