@@ -7,7 +7,6 @@ namespace Infrastructure
     {
         public DbSet<User> Users { get; set; }
 
-        public OrderDBContext() { }
         public OrderDBContext(DbContextOptions<OrderDBContext> options) : base(options) { }
     }
 }
