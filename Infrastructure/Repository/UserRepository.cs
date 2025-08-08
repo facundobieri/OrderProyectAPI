@@ -10,6 +10,13 @@ namespace Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {
+        private readonly OrderDBContext _dbContext;
+
+        public UserRepository(OrderDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public Task<User?> GetUser(string email, string password)
         {
             throw new NotImplementedException();
