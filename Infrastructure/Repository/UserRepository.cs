@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace Infrastructure.Repository
             _dbContext = dbContext;
         }
 
-        public Task<User?> GetUser(string email, string password)
+        public async Task<User?> GetUser(string email, string password)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
         }
     }
 }
