@@ -1,9 +1,13 @@
 
+using Application.Services;
 using Domain.Interfaces;
 using Infrastructure;
 using Infrastructure.Repository;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace OrderProyectAPI
 {
@@ -21,14 +25,55 @@ namespace OrderProyectAPI
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.AddSecurityDefinition("OrderApiBearerAuth", new OpenApiSecurityScheme()
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    Description = "Aquï¿½ poner el token generado al loguearse."
+                });
 
-            // Cadena de conexión
+                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "OrderApiBearerAuth" }
+                }, new List<string>() }
+    });
+
+
+            });
+
+            // Cadena de conexiï¿½n
             builder.Services.AddDbContext<OrderDBContext>(options =>
                     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            // Authentication
+            builder.Services.AddAuthentication("Bearer")
+                .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["AuthenticationService:Issuer"],
+                    ValidAudience = builder.Configuration["AuthenticationService:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AuthenticationService:SecretForKey"] ?? ""))
+                };
+            }
+);
+
+            // Repository
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+            // Services
+            builder.Services.AddScoped<UserService>();
 
             var app = builder.Build();
 
