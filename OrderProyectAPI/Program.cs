@@ -3,6 +3,7 @@ using Application.Services;
 using Domain.Interfaces;
 using Infrastructure;
 using Infrastructure.Repository;
+using Infrastructure.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -49,6 +50,13 @@ namespace OrderProyectAPI
 
             });
 
+            builder.Services.AddHttpClient<DollarApiService>(client =>
+            {
+                client.BaseAddress = new Uri("https://dolarapi.com/v1/");
+                client.Timeout = TimeSpan.FromSeconds(10);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
             // Cadena de conexi�n
             builder.Services.AddDbContext<OrderDBContext>(options =>
                     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -74,6 +82,7 @@ namespace OrderProyectAPI
 
             // Services
             builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<ProductService>();
 
             var app = builder.Build();
 
