@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Product
+    public class Order
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public decimal Price { get; set; } 
+        public DateTime OrderDate { get; set; }
+        public int TableId { get; set; }
+        public int ProductId { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

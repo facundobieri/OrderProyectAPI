@@ -10,7 +10,7 @@ namespace Domain.Enum
     {
         SuAdmin,
         admin,
-        Waiter,
+        Employee,
         Client
 
     }
