@@ -9,8 +9,8 @@ namespace Application.Models.Response
     public class ProductResponseDto
     {
         public int Id { get; set; }
-        public string Nombre { get; set; } = string.Empty;
-        public decimal PrecioArs { get; set; }
-        public decimal PrecioUsd { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public decimal PriceInUsd { get; set; }
     }
 }
