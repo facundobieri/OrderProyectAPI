@@ -16,6 +16,7 @@ namespace Domain.Entities
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(100)]
         public string Username { get; set; }
 
         [Required]
