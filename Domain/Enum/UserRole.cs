@@ -9,7 +9,7 @@ namespace Domain.Enum
     public enum UserRole
     {
         SuAdmin,
-        admin,
+        Admin,
         Employee,
         Client
 

@@ -16,6 +16,7 @@ namespace Domain.Entities
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(100)]
         public string Username { get; set; }
 
         [Required]
@@ -26,6 +27,8 @@ namespace Domain.Entities
         public string Password { get; set; }
 
         public UserRole Role { get; set; }
+
+        public bool IsActive { get; set; } = true;
 
     }
 }

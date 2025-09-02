@@ -1,14 +1,13 @@
-
-using Application.Services;
-using Domain.Interfaces;
 using Infrastructure;
-using Infrastructure.Repository;
-using Infrastructure.Services;
-using Microsoft.Data.Sqlite;
+using Domain.Interfaces;
+using Application.Interfaces;
+using Application.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using Infrastructure.Services;
 using System.Text;
+using Infrastructure.Repository;
 
 namespace OrderProyectAPI
 {
@@ -57,7 +56,7 @@ namespace OrderProyectAPI
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 
-            // Cadena de conexi�n
+            // configuration for DbContext
             builder.Services.AddDbContext<OrderDBContext>(options =>
                     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -81,8 +80,9 @@ namespace OrderProyectAPI
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             // Services
-            builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var app = builder.Build();
 

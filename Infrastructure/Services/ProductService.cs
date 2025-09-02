@@ -22,8 +22,8 @@ namespace Infrastructure.Services
             // Simulación de productos en memoria
             var productos = new List<Product>
             {
-                new Product { Id = 1, Nombre = "Hamburguesa Clásica", PrecioArs = 6500 },
-                new Product { Id = 2, Nombre = "Hamburguesa Doble", PrecioArs = 8500 }
+                new Product { Id = 1, Name = "Hamburguesa Clásica", Price = 6500 },
+                new Product { Id = 2, Name = "Hamburguesa Doble", Price = 8500 }
             };
 
             var dollarRate = await _dollarApiService.GetOfficialDollarRateAsync();
@@ -34,9 +34,9 @@ namespace Infrastructure.Services
             return productos.Select(p => new ProductResponseDto
             {
                 Id = p.Id,
-                Nombre = p.Nombre,
-                PrecioArs = p.PrecioArs,
-                PrecioUsd = Math.Round(p.PrecioArs / dollarRate.Value, 2)
+                Name = p.Name,
+                Price = p.Price,
+                PriceInUsd = Math.Round(p.Price / dollarRate.Value, 2)
             });
         }
     }

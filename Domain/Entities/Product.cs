@@ -13,9 +13,23 @@ namespace Domain.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
+
         [Required]
+        [Range(0,9999999.99)]
+        [Column(TypeName = "decimal(9, 2)")]
         public decimal Price { get; set; } 
+
+        [MaxLength(500)]
+        public string Description { get; set; }
+
+        public bool IsAvailable { get; set; } = true;
+
+        public ICollection<Menu> Menus { get; set; }
+
+
     }
 }
