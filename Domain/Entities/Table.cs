@@ -15,6 +15,11 @@ namespace Domain.Entities
         public int Id { get; set; }
         [Required]
         public int TableNumber { get; set; }
-        public bool IsAvailable { get; set; }
+        [Required]
+        public bool IsAvailable { get; set; } = true;
+        [ForeignKey("Branch")]
+        public int BranchId { get; set; }
+        public Branch Branch { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

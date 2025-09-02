@@ -28,5 +28,7 @@ namespace Domain.Entities
 
         public UserRole Role { get; set; }
 
+        public bool IsActive { get; set; } = true;
+
     }
 }

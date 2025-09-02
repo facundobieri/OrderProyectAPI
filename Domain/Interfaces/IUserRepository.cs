@@ -9,6 +9,12 @@ namespace Domain.Interfaces
 {
     public interface IUserRepository
     {
-        public Task<User?> GetUser(string email, string password);
+        Task<User?> GetUser(string email, string password);
+        Task<IEnumerable<User>> GetAll();
+        Task<User?> GetById(int id);
+        Task<User?> GetByEmail(string email);
+        Task<User> CreateUser(User user);
+        Task UpdateUser(User user);
+        Task DeleteUser(int id);
     }
 }

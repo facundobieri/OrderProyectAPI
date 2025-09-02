@@ -18,11 +18,12 @@ namespace Domain.Entities
         [MaxLength(100)]
         public string Name { get; set; } 
 
-        [MaxLength(255)]
-        public string? Description { get; set; }
-
         public bool IsActive { get; set; } = true;
 
-        // Coleccion de Items de el menu
+        [ForeignKey("Branch")]
+        public int BranchId { get; set; }
+        public Branch Branch { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

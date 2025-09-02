@@ -16,9 +16,20 @@ namespace Domain.Entities
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+        public string Address { get; set; }
+
+        // Admin de la sucursal
+
+        [ForeignKey("Admin")]
         public int AdminId { get; set; }
-        [ForeignKey("AdminId")]
-        public User Admin { get; set; }
+
+
+        // relacion 1 - N tables, menu, orders etc
+        public ICollection<Table> Tables { get; set; }
+        public ICollection<Menu> Menus { get; set; }
+        public ICollection<Order> Orders { get; set; }
+
+
 
     }
 }
