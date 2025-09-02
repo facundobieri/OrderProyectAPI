@@ -21,7 +21,7 @@ namespace Domain.Entities
         public int BranchId { get; set; }
         public Branch Branch { get; set; }
 
-        // Productos que contiene el menú
+        // Productos del menú
         public ICollection<Product> Products { get; set; }
     }
 }

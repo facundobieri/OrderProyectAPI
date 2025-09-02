@@ -21,8 +21,6 @@ namespace Domain.Entities
 
         // Relaciones 1 - N
         public ICollection<Table> Tables { get; set; }
-        public ICollection<Product> Products { get; set; }
         public ICollection<User> Users { get; set; }
-        public ICollection<Menu> Menus { get; set; }
     }
 }
